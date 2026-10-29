@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gallery — Pixel Planet Gallery</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+      :root {
+        --footer-bg-color: #f8f9fa;
+        --footer-text-color: #6c757d;
+        --footer-link-hover-color: #343a40;
+      }
+
+      body {
+        color: #333;
+        padding-top: 90px;
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        background-color: #f4f3ef; /* Warm museum wall background tone */
+        overflow-x: hidden;
+      }
+
+      main {
+        flex: 1 0 auto;
+      }
+
+      /* MODERN GLASSMORPHIC NAVBAR */
+      .custom-navbar {
+        background-color: rgba(255, 255, 255, 0.85) !important;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease-in-out;
+      }
+
+      .custom-navbar .nav-link {
+        font-size: 0.9rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: #2b2b2b !important;
+        position: relative;
+        padding: 0.5rem 0;
+        transition: color 0.3s ease;
+      }
+
+      .custom-navbar .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 50%;
+        background-color: #000;
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+      }
+
+      .custom-navbar .nav-link:hover::after,
+      .custom-navbar .nav-link.active::after {
+        width: 100%;
+      }
+
+      .btn-gallery-contact {
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 0.5rem 1.4rem;
+        border-radius: 30px;
+        border: 1.5px solid #1a1a1a;
+        color: #1a1a1a;
+        background-color: transparent;
+        transition: all 0.3s ease;
+      }
+
+      .btn-gallery-contact:hover {
+        background-color: #1a1a1a;
+        color: #ffffff !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      /* GALLERY EXHIBIT PAIR (Painting + Placard Card Side-by-Side) */
+      .gallery-exhibit-pair {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: transparent;
+        height: 100%;
+      }
+
+      /* MUSEUM-STYLE FRAMED ARTWORK CARD */
+      .museum-frame-card {
+        background: #ffffff;
+        padding: 16px;
+        border: 3px solid #1a1a1a; /* Outer Black Frame */
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+        border-radius: 4px;
+        flex-grow: 1;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .museum-frame-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 36px rgba(0, 0, 0, 0.22);
+      }
+
+      /* White Mat Board Around Painting */
+      .mat-board {
+        background: #ffffff;
+        padding: 14px;
+        box-shadow: inset 0 0 8px rgba(0,0,0,0.06);
+        border: 1px solid #e0e0e0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* Image Heights */
+      .artwork-img-landscape {
+        width: 100%;
+        height: 180px;
+        object-fit: contain;
+        background-color: #fafafa;
+        display: block;
+      }
+
+      .artwork-img-portrait {
+        width: 100%;
+        height: 260px;
+        object-fit: contain;
+        background-color: #fafafa;
+        display: block;
+      }
+
+      /* REAL GALLERY LABEL CARD */
+      .gallery-label-card {
+        background: #fdfdfd;
+        border: 1px solid #dcdcdc;
+        border-left: 4px solid #1a1a1a;
+        padding: 10px 12px;
+        box-shadow: 2px 4px 10px rgba(0,0,0,0.04);
+        font-family: "Georgia", serif;
+        min-width: 140px;
+        flex-shrink: 0;
+      }
+
+      .gallery-label-title {
+        font-weight: 700;
+        font-size: 0.85rem;
+        color: #111;
+        margin-bottom: 2px;
+      }
+
+      .gallery-label-artist {
+        font-style: italic;
+        font-size: 0.75rem;
+        color: #444;
+        margin-bottom: 2px;
+      }
+
+      .gallery-label-medium {
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #777;
+        margin-bottom: 0;
+      }
+
+      .footer-minimal {
+        background-color: var(--footer-bg-color);
+        color: var(--footer-text-color);
+        font-size: 0.875rem;
+        border-top: 1px solid #e7e7e7;
+        flex-shrink: 0;
+        margin-top: auto;
+      }
+
+      .footer-minimal__container {
+        max-width: 1140px;
+        margin: 0 auto;
+        padding: 1.25rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .footer-minimal__copyright {
+        margin: 0;
+        text-align: center;
+      }
+
+      @media (min-width: 576px) {
+        .footer-minimal__container {
+          flex-direction: row;
+          justify-content: space-between;
+        }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- NAVIGATION BAR -->
+    <nav class="navbar navbar-expand-lg fixed-top custom-navbar shadow-sm">
+      <div class="container">
+        <a class="navbar-brand py-2" href="index.html">
+          <img id="MDB-logo" src="logo.png" alt="Gallery Logo" draggable="false" height="45" />
+        </a>
+        
+        <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fas fa-bars fs-4"></i>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto align-items-lg-center">
+            <li class="nav-item mx-lg-2">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item mx-lg-2">
+              <a class="nav-link active" href="gallery.html">Gallery</a>
+            </li>
+            <li class="nav-item mx-lg-2">
+              <a class="nav-link" href="artist.html">Artists</a>
+            </li>
+            <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
+              <a class="btn btn-gallery-contact" href="contact.html">Contact Us</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- MAIN CONTENT: GALLERY PAGE -->
+    <main class="py-5">
+      <div class="container">
+        <!-- Page Header -->
+        <div class="text-center mb-5">
+          <h6 class="text-uppercase text-muted" style="letter-spacing: 2.5px;">Exhibition Collection</h6>
+          <h1 class="fw-bold display-5 mb-3">Art Gallery</h1>
+          <p class="text-muted mx-auto" style="max-width: 600px;">
+            Explore our curated exhibition featuring side-by-side gallery framing and placard cards.
+          </p>
+          <div style="width: 50px; height: 3px; background: #000; margin: 20px auto 0;"></div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- ARTWORK COLLECTION GRID (2-column layout with 1-column mobile stack) -->
+        <!-- ========================================== -->
+        <div class="mb-5" id="artwork-phway">
+          <h4 class="fw-bold text-uppercase mb-4 pb-2 border-bottom border-dark" style="letter-spacing: 1px; font-size: 1.1rem;">Phway Phway's Artwork Collection</h4>
+          <div class="row g-4">
+            
+            <!-- Painting 1 -->
+            <div class="col-lg-6">
+              <div class="gallery-exhibit-pair">
+                <div class="museum-frame-card">
+                  <div class="mat-board">
+                    <img src="p1.jpg" alt="Kyaik Htee Yoe Pagoda" class="artwork-img-portrait">
+                  </div>
+                </div>
+                <div class="gallery-label-card">
+                  <p class="gallery-label-title">Kyaik Htee Yoe Pagoda</p>
+                  <p class="gallery-label-artist">Phway</p>
+                  <p class="gallery-label-medium">Acrylic • 2026</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Painting 2 -->
+            <div class="col-lg-6">
+              <div class="gallery-exhibit-pair">
+                <div class="museum-frame-card">
+                  <div class="mat-board">
+                    <img src="p2.jpg" alt="Soft Blushes in Pink" class="artwork-img-portrait">
+                  </div>
+                </div>
+                <div class="gallery-label-card">
+                  <p class="gallery-label-title">Soft Blushes in Pink</p>
+                  <p class="gallery-label-artist">Phway</p>
+                  <p class="gallery-label-medium">Acrylic • 2026</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Painting 3 -->
+            <div class="col-lg-6">
+              <div class="gallery-exhibit-pair">
+                <div class="museum-frame-card">
+                  <div class="mat-board">
+                    <img src="p3.jpg" alt="The Woodland Fairy Cottage" class="artwork-img-portrait">
+                  </div>
+                </div>
+                <div class="gallery-label-card">
+                  <p class="gallery-label-title">The Woodland Fairy Cottage</p>
+                  <p class="gallery-label-artist">Phway</p>
+                  <p class="gallery-label-medium">Watercolor • 2026</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Painting 4 -->
+            <div class="col-lg-6">
+              <div class="gallery-exhibit-pair">
+                <div class="museum-frame-card">
+                  <div class="mat-board">
+                    <img src="p4.jpg" alt="Cosmic Cafe Dream" class="artwork-img-portrait">
+                  </div>
+                </div>
+                <div class="gallery-label-card">
+                  <p class="gallery-label-title">Cosmic Cafe Dream</p>
+                  <p class="gallery-label-artist">Phway</p>
+                  <p class="gallery-label-medium">Watercolor • 2026</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Painting 5 -->
+            <div class="col-lg-6">
+              <div class="gallery-exhibit-pair">
+                <div class="museum-frame-card">
+                  <div class="mat-board">
+                    <img src="p5.jpg" alt="Midnight Blue Sweet Treat" class="artwork-img-portrait">
+                  </div>
+                </div>
+                <div class="gallery-label-card">
+                  <p class="gallery-label-title">Midnight Blue Sweet Treat</p>
+                  <p class="gallery-label-artist">Phway</p>
+                  <p class="gallery-label-medium">Acrylic • 2026</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Painting 6 -->
+            <div class="col-lg-6">
+              <div class="gallery-exhibit-pair">
+                <div class="museum-frame-card">
+                  <div class="mat-board">
+                    <img src="p6.jpg" alt="Burger Dreamland" class="artwork-img-portrait">
+                  </div>
+                </div>
+                <div class="gallery-label-card">
+                  <p class="gallery-label-title">Burger Dreamland</p>
+                  <p class="gallery-label-artist">Phway</p>
+                  <p class="gallery-label-medium">Watercolor • 2026</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Painting 7 -->
+            <div class="col-lg-6">
+              <div class="gallery-exhibit-pair">
+                <div class="museum-frame-card">
+                  <div class="mat-board">
+                    <img src="p7.jpg" alt="Sweet Cloud Float" class="artwork-img-portrait">
+                  </div>
+                </div>
+                <div class="gallery-label-card">
+                  <p class="gallery-label-title">Sweet Cloud Float</p>
+                  <p class="gallery-label-artist">Phway</p>
+                  <p class="gallery-label-medium">Watercolor • 2026</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Painting 8 -->
+            <div class="col-lg-6">
+              <div class="gallery-exhibit-pair">
+                <div class="museum-frame-card">
+                  <div class="mat-board">
+                    <img src="p8.jpg" alt="Golden Hour by the River" class="artwork-img-portrait">
+                  </div>
+                </div>
+                <div class="gallery-label-card">
+                  <p class="gallery-label-title">Golden Hour by the River</p>
+                  <p class="gallery-label-artist">Phway</p>
+                  <p class="gallery-label-medium">Acrylic • 2026</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Painting 9 -->
+            <div class="col-lg-6">
+              <div class="gallery-exhibit-pair">
+                <div class="museum-frame-card">
+                  <div class="mat-board">
+                    <img src="p9.jpg" alt="The Little Flower Shop" class="artwork-img-portrait">
+                  </div>
+                </div>
+                <div class="gallery-label-card">
+                  <p class="gallery-label-title">The Little Flower Shop</p>
+                  <p class="gallery-label-artist">Phway</p>
+                  <p class="gallery-label-medium">Watercolor • 2026</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Painting 10 -->
+            <div class="col-lg-6">
+              <div class="gallery-exhibit-pair">
+                <div class="museum-frame-card">
+                  <div class="mat-board">
+                    <img src="p10.jpg" alt="The Ultimate Snack Table" class="artwork-img-portrait">
+                  </div>
+                </div>
+                <div class="gallery-label-card">
+                  <p class="gallery-label-title">The Ultimate Snack Table</p>
+                  <p class="gallery-label-artist">Phway</p>
+                  <p class="gallery-label-medium">Watercolor • 2026</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Painting 11 -->
+            <div class="col-lg-6">
+              <div class="gallery-exhibit-pair">
+                <div class="museum-frame-card">
+                  <div class="mat-board">
+                    <img src="p11.jpg" alt="A Sprinkle of Happiness" class="artwork-img-landscape">
+                  </div>
+                </div>
+                <div class="gallery-label-card">
+                  <p class="gallery-label-title">A Sprinkle of Happiness</p>
+                  <p class="gallery-label-artist">Phway</p>
+                  <p class="gallery-label-medium">Watercolor • 2026</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer-minimal" role="contentinfo">
+      <div class="footer-minimal__container">
+        <p class="footer-minimal__copyright">
+          &copy; 2026 Pixel Planet Gallery. All Rights Reserved.
+        </p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
