@@ -88,13 +88,22 @@
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       }
 
-      /* GALLERY EXHIBIT PAIR (Painting + Placard Card Side-by-Side) */
+      /* GALLERY EXHIBIT PAIR */
+      /* Stacked vertically on Mobile & Tablet, Side-by-side on Laptop/Desktop (992px+) */
       .gallery-exhibit-pair {
         display: flex;
-        align-items: center;
+        flex-direction: column;
+        align-items: stretch;
         gap: 12px;
         background: transparent;
         height: 100%;
+      }
+
+      @media (min-width: 992px) {
+        .gallery-exhibit-pair {
+          flex-direction: row;
+          align-items: center;
+        }
       }
 
       /* MUSEUM-STYLE FRAMED ARTWORK CARD */
@@ -105,6 +114,7 @@
         box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
         border-radius: 4px;
         flex-grow: 1;
+        width: 100%;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
       }
 
@@ -124,10 +134,10 @@
         align-items: center;
       }
 
-      /* Image Heights */
+      /* Responsive Image Heights for Mobile, Tablet, and Desktop */
       .artwork-img-landscape {
         width: 100%;
-        height: 180px;
+        height: 220px;
         object-fit: contain;
         background-color: #fafafa;
         display: block;
@@ -135,10 +145,28 @@
 
       .artwork-img-portrait {
         width: 100%;
-        height: 260px;
+        height: 320px;
         object-fit: contain;
         background-color: #fafafa;
         display: block;
+      }
+
+      @media (min-width: 768px) and (max-width: 991px) {
+        .artwork-img-landscape {
+          height: 200px;
+        }
+        .artwork-img-portrait {
+          height: 280px;
+        }
+      }
+
+      @media (min-width: 992px) {
+        .artwork-img-landscape {
+          height: 180px;
+        }
+        .artwork-img-portrait {
+          height: 260px;
+        }
       }
 
       /* REAL GALLERY LABEL CARD */
@@ -149,8 +177,15 @@
         padding: 10px 12px;
         box-shadow: 2px 4px 10px rgba(0,0,0,0.04);
         font-family: "Georgia", serif;
-        min-width: 140px;
+        width: 100%;
         flex-shrink: 0;
+      }
+
+      @media (min-width: 992px) {
+        .gallery-label-card {
+          width: auto;
+          min-width: 140px;
+        }
       }
 
       .gallery-label-title {
@@ -253,15 +288,13 @@
           <div style="width: 50px; height: 3px; background: #000; margin: 20px auto 0;"></div>
         </div>
 
-        <!-- ========================================== -->
-        <!-- ARTWORK COLLECTION GRID (2-column layout with 1-column mobile stack) -->
-        <!-- ========================================== -->
+        <!-- ARTWORK COLLECTION GRID -->
         <div class="mb-5" id="artwork-phway">
           <h4 class="fw-bold text-uppercase mb-4 pb-2 border-bottom border-dark" style="letter-spacing: 1px; font-size: 1.1rem;">Phway Phway's Artwork Collection</h4>
           <div class="row g-4">
             
             <!-- Painting 1 -->
-            <div class="col-lg-6">
+            <div class="col-12 col-md-6 col-lg-6">
               <div class="gallery-exhibit-pair">
                 <div class="museum-frame-card">
                   <div class="mat-board">
@@ -277,7 +310,7 @@
             </div>
 
             <!-- Painting 2 -->
-            <div class="col-lg-6">
+            <div class="col-12 col-md-6 col-lg-6">
               <div class="gallery-exhibit-pair">
                 <div class="museum-frame-card">
                   <div class="mat-board">
@@ -293,7 +326,7 @@
             </div>
 
             <!-- Painting 3 -->
-            <div class="col-lg-6">
+            <div class="col-12 col-md-6 col-lg-6">
               <div class="gallery-exhibit-pair">
                 <div class="museum-frame-card">
                   <div class="mat-board">
@@ -309,7 +342,7 @@
             </div>
 
             <!-- Painting 4 -->
-            <div class="col-lg-6">
+            <div class="col-12 col-md-6 col-lg-6">
               <div class="gallery-exhibit-pair">
                 <div class="museum-frame-card">
                   <div class="mat-board">
@@ -325,7 +358,7 @@
             </div>
 
             <!-- Painting 5 -->
-            <div class="col-lg-6">
+            <div class="col-12 col-md-6 col-lg-6">
               <div class="gallery-exhibit-pair">
                 <div class="museum-frame-card">
                   <div class="mat-board">
@@ -341,7 +374,7 @@
             </div>
 
             <!-- Painting 6 -->
-            <div class="col-lg-6">
+            <div class="col-12 col-md-6 col-lg-6">
               <div class="gallery-exhibit-pair">
                 <div class="museum-frame-card">
                   <div class="mat-board">
@@ -357,7 +390,7 @@
             </div>
 
             <!-- Painting 7 -->
-            <div class="col-lg-6">
+            <div class="col-12 col-md-6 col-lg-6">
               <div class="gallery-exhibit-pair">
                 <div class="museum-frame-card">
                   <div class="mat-board">
@@ -373,7 +406,7 @@
             </div>
 
             <!-- Painting 8 -->
-            <div class="col-lg-6">
+            <div class="col-12 col-md-6 col-lg-6">
               <div class="gallery-exhibit-pair">
                 <div class="museum-frame-card">
                   <div class="mat-board">
@@ -389,7 +422,7 @@
             </div>
 
             <!-- Painting 9 -->
-            <div class="col-lg-6">
+            <div class="col-12 col-md-6 col-lg-6">
               <div class="gallery-exhibit-pair">
                 <div class="museum-frame-card">
                   <div class="mat-board">
@@ -405,7 +438,7 @@
             </div>
 
             <!-- Painting 10 -->
-            <div class="col-lg-6">
+            <div class="col-12 col-md-6 col-lg-6">
               <div class="gallery-exhibit-pair">
                 <div class="museum-frame-card">
                   <div class="mat-board">
@@ -421,7 +454,7 @@
             </div>
 
             <!-- Painting 11 -->
-            <div class="col-lg-6">
+            <div class="col-12 col-md-6 col-lg-6">
               <div class="gallery-exhibit-pair">
                 <div class="museum-frame-card">
                   <div class="mat-board">
@@ -438,6 +471,31 @@
 
           </div>
         </div>
+
+        <div class="mb-5" id="artwork-wm">
+          <h4 class="fw-bold text-uppercase mb-4 pb-2 border-bottom border-dark" style="letter-spacing: 1px; font-size: 1.1rem;">Wathone Me's Artwork Collection</h4>
+          <div class="row g-4">
+            
+            <!-- Painting 1 -->
+            <div class="col-12 col-md-6 col-lg-6">
+              <div class="gallery-exhibit-pair">
+                <div class="museum-frame-card">
+                  <div class="mat-board">
+                    <img src="w1.jpg" alt="Kyaik Htee Yoe Pagoda" class="artwork-img-portrait">
+                  </div>
+                </div>
+                <div class="gallery-label-card">
+                  <p class="gallery-label-title">Wathone Me's Artwork</p>
+                  <p class="gallery-label-artist">Wathone Me</p>
+                  <p class="gallery-label-medium">Color Pencil • 2026</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
 
       </div>
     </main>
